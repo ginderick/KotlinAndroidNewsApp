@@ -1,12 +1,12 @@
-package com.example.kotlinandroidnewsapp
+package com.example.kotlinandroidnewsapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import com.example.kotlinandroidnewsapp.R
 import com.example.kotlinandroidnewsapp.api.NewsAPI
 import com.example.kotlinandroidnewsapp.db.ArticleDao
-import com.example.kotlinandroidnewsapp.ui.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
