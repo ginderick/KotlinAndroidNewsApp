@@ -12,7 +12,7 @@
         android:label="BreakingNewsFragment">
         <action
             android:id="@+id/action_breakingNewsFragment_to_articleFragment"
-            app:destination="@id/detailNewsFragment" />
+            app:destination="@id/ArticleFragment" />
     </fragment>
     <fragment
         android:id="@+id/savedNewsFragment"
@@ -20,7 +20,7 @@
         android:label="SavedNewsFragment">
         <action
             android:id="@+id/action_savedNewsFragment_to_articleFragment"
-            app:destination="@id/detailNewsFragment" />
+            app:destination="@id/ArticleFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchNewsFragment"
@@ -28,10 +28,14 @@
         android:label="SearchNewsFragment">
         <action
             android:id="@+id/action_searchNewsFragment_to_articleFragment"
-            app:destination="@id/detailNewsFragment" />
+            app:destination="@id/ArticleFragment" />
     </fragment>
     <fragment
-        android:id="@+id/detailNewsFragment"
+        android:id="@+id/ArticleFragment"
         android:name="com.example.kotlinandroidnewsapp.ui.fragments.ArticleFragment"
-        android:label="DetailNewsFragment" />
+        android:label="DetailNewsFragment" >
+        <argument
+            android:name="article"
+            app:argType="com.example.kotlinandroidnewsapp.model.Article" />
+    </fragment>
 </navigation>
