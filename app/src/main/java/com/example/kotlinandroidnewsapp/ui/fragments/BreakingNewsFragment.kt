@@ -24,23 +24,10 @@ class BreakingNewsFragment: Fragment(R.layout.fragment_breaking_news) {
 
         setUpRecyclerView()
         viewModel.getBreakingNews()
-        observeLiveData()
-    }
 
-    private fun observeLiveData() {
-        viewModel.apply {
-            newsLiveData.observe(viewLifecycleOwner, Observer {
-                newsAdapter.differ.submitList(it)
-                rvBreakingNews.visibility = View.VISIBLE
-            })
-
-//            loadingLiveData.observe(viewLifecycleOwner, Observer { isLoading ->
-//                pbBreakingNews.visibility = if(isLoading) View.VISIBLE else View.GONE
-//                if (isLoading) {
-//                    rvBreakingNews.visibility = View.GONE
-//                }
-//            })
-        }
+        viewModel.newsLiveData.observe(viewLifecycleOwner, Observer {
+            newsAdapter.differ.submitList(it)
+        })
     }
 
     private fun setUpRecyclerView() {
