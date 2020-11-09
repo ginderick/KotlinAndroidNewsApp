@@ -31,7 +31,27 @@ class SearchNewsFragment: Fragment(R.layout.fragment_search_news) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
+        observeLiveData()
+        searchNews()
+    }
 
+    private fun setUpRecyclerView() {
+        newsAdapter = NewsAdapter()
+        rvSearchNews.apply {
+            adapter = newsAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
+    }
+
+    private fun observeLiveData() {
+        viewModel.apply {
+            searchNewsLiveData.observe(viewLifecycleOwner, Observer {
+                newsAdapter.differ.submitList(it)
+            })
+        }
+    }
+
+    private fun searchNews() {
         etSearch.addTextChangedListener { editable ->
             job?.cancel()
             job = MainScope().launch {
@@ -42,21 +62,6 @@ class SearchNewsFragment: Fragment(R.layout.fragment_search_news) {
                     }
                 }
             }
-        }
-
-        viewModel.searchNewsLiveData.observe(viewLifecycleOwner, Observer {
-            pbSearchNews.visibility = View.VISIBLE
-            newsAdapter.differ.submitList(it)
-            pbSearchNews.visibility = View.GONE
-            rvSearchNews.visibility = View.VISIBLE
-        })
-    }
-
-    private fun setUpRecyclerView() {
-        newsAdapter = NewsAdapter()
-        rvSearchNews.apply {
-            adapter = newsAdapter
-            layoutManager = LinearLayoutManager(activity)
         }
     }
 }
