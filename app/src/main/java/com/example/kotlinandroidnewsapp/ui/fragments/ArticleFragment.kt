@@ -4,15 +4,19 @@ import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.NavigationUI
 import com.example.kotlinandroidnewsapp.R
 import com.example.kotlinandroidnewsapp.ui.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -23,8 +27,18 @@ import kotlinx.android.synthetic.main.fragment_article.*
 @AndroidEntryPoint
 class ArticleFragment: Fragment(R.layout.fragment_article) {
 
+
     private val viewModel: NewsViewModel by viewModels()
     val args: ArticleFragmentArgs by navArgs()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        setHasOptionsMenu(true)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,7 +52,7 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
             webView.settings.javaScriptEnabled = true
             webView.settings.cacheMode = WebSettings.LOAD_DEFAULT
 
-            if ( !isInternetAvailable(context)) { // loading offline
+            if (!isInternetAvailable(context)) { // loading offline
                 Snackbar.make(this, "Viewing offline", Snackbar.LENGTH_LONG).show()
                 webView.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK;
             }
@@ -52,6 +66,15 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
             viewModel.saveNews(article)
             Snackbar.make(view, "Saved successfully", Snackbar.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // handle the up button here
+        return NavigationUI.onNavDestinationSelected(
+            item!!,
+            requireView()!!.findNavController()
+        )
+                || super.onOptionsItemSelected(item)
     }
 
     private fun isInternetAvailable(context: Context): Boolean {
