@@ -18,14 +18,6 @@ class NewsAdapter : PagingDataAdapter<Article,ViewHolder>(ARTICLE_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return NewsViewHolder.create(parent)
-
-//        return NewsViewHolder(
-//            LayoutInflater.from(parent.context).inflate(
-//                R.layout.news_preview,
-//                parent,
-//                false
-//            )
-//        )
     }
 
 
