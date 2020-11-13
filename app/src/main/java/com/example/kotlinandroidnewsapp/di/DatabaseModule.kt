@@ -3,7 +3,7 @@ package com.example.kotlinandroidnewsapp.di
 import android.content.Context
 import androidx.room.Room
 import com.example.kotlinandroidnewsapp.db.ArticleDb
-import com.example.kotlinandroidnewsapp.others.Constants.ARTICLE_DB_NAME
+import com.example.kotlinandroidnewsapp.util.Constants.ARTICLE_DB_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

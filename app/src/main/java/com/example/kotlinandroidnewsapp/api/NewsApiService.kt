@@ -1,12 +1,12 @@
-package com.example.kotlinandroidnewsapp.api
-
-import com.example.kotlinandroidnewsapp.util.Constants.BASE_URL
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-
-object NewsApiService {
+//package com.example.kotlinandroidnewsapp.api
+//
+//import com.example.kotlinandroidnewsapp.util.Constants.BASE_URL
+//import okhttp3.OkHttpClient
+//import okhttp3.logging.HttpLoggingInterceptor
+//import retrofit2.Retrofit
+//import retrofit2.converter.gson.GsonConverterFactory
+//
+//class NewsApiService {
 //    companion object {
 //        private val retrofit by lazy {
 //            val logging = HttpLoggingInterceptor()
@@ -25,5 +25,5 @@ object NewsApiService {
 //            retrofit.create(NewsAPI::class.java)
 //        }
 //    }
-}
+//}
 

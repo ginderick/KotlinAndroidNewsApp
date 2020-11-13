@@ -25,7 +25,7 @@ class SavedNewsFragment: Fragment(R.layout.fragment_saved_news) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
-        observeLiveData()
+//        observeLiveData()
         directToDetail()
 
     }
@@ -38,11 +38,11 @@ class SavedNewsFragment: Fragment(R.layout.fragment_saved_news) {
         }
     }
 
-    private fun observeLiveData() {
-        viewModel.getSavedNews().observe(viewLifecycleOwner, Observer {
-            newsAdapter.differ.submitList(it)
-        })
-    }
+//    private fun observeLiveData() {
+//        viewModel.getSavedNews().observe(viewLifecycleOwner, Observer {
+//            newsAdapter.differ.submitList(it)
+//        })
+//    }
 
     private fun directToDetail() {
         newsAdapter.setOnItemClickListener {

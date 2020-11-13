@@ -35,8 +35,8 @@ class SearchNewsFragment: Fragment(R.layout.fragment_search_news) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
-        observeLiveData()
-        searchNews()
+//        observeLiveData()
+//        searchNews()
 
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
@@ -57,25 +57,25 @@ class SearchNewsFragment: Fragment(R.layout.fragment_search_news) {
         }
     }
 
-    private fun observeLiveData() {
-        viewModel.apply {
-            searchNewsLiveData.observe(viewLifecycleOwner, Observer {
-                newsAdapter.differ.submitList(it)
-            })
-        }
-    }
+//    private fun observeLiveData() {
+//        viewModel.apply {
+//            searchNewsLiveData.observe(viewLifecycleOwner, Observer {
+//                newsAdapter.differ.submitList(it)
+//            })
+//        }
+//    }
 
-    private fun searchNews() {
-        etSearch.addTextChangedListener { editable ->
-            job?.cancel()
-            job = MainScope().launch {
-                delay(SEARCH_NEWS_TIME_DELAY)
-                editable?.let {
-                    if (editable.toString().isNotEmpty()) {
-                        viewModel.searchNews(editable.toString())
-                    }
-                }
-            }
-        }
-    }
+//    private fun searchNews() {
+//        etSearch.addTextChangedListener { editable ->
+//            job?.cancel()
+//            job = MainScope().launch {
+//                delay(SEARCH_NEWS_TIME_DELAY)
+//                editable?.let {
+//                    if (editable.toString().isNotEmpty()) {
+//                        viewModel.searchNews(editable.toString())
+//                    }
+//                }
+//            }
+//        }
+//    }
 }

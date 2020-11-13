@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -62,10 +63,10 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
         }
 
 
-        fab.setOnClickListener {
-            viewModel.saveNews(article)
-            Snackbar.make(view, "Saved successfully", Snackbar.LENGTH_SHORT).show()
-        }
+//        fab.setOnClickListener {
+//            viewModel.saveNews(article)
+//            Snackbar.make(view, "Saved successfully", Snackbar.LENGTH_SHORT).show()
+//        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -104,6 +105,7 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
                 }
             }
         }
+        Log.d("Connected:", result.toString())
 
         return result
     }

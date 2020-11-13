@@ -8,7 +8,8 @@ import com.example.kotlinandroidnewsapp.model.Article
 
 @Database(
     entities = [Article::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class ArticleDb: RoomDatabase() {
