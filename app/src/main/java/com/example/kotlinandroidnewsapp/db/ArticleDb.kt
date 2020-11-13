@@ -7,11 +7,13 @@ import androidx.room.TypeConverters
 import com.example.kotlinandroidnewsapp.model.Article
 
 @Database(
-    entities = [Article::class],
+    entities = [Article::class, RemoteKeys::class],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class ArticleDb: RoomDatabase() {
+
     abstract fun getArticleDao(): ArticleDao
+    abstract fun getRemoteKeysDao(): RemoteKeysDao
 }

@@ -3,6 +3,7 @@ package com.example.kotlinandroidnewsapp.di
 import android.content.Context
 import androidx.room.Room
 import com.example.kotlinandroidnewsapp.db.ArticleDb
+import com.example.kotlinandroidnewsapp.db.RemoteKeys
 import com.example.kotlinandroidnewsapp.util.Constants.ARTICLE_DB_NAME
 import dagger.Module
 import dagger.Provides
@@ -24,6 +25,7 @@ object DatabaseModule {
         ArticleDb::class.java,
         ARTICLE_DB_NAME
     ).build()
+
 
     @Singleton
     @Provides
