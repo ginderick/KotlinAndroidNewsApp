@@ -1,18 +1,16 @@
 package com.example.kotlinandroidnewsapp.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.kotlinandroidnewsapp.model.Article
-import com.example.kotlinandroidnewsapp.repository.RemoteRepository
+import com.example.kotlinandroidnewsapp.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 
 class NewsViewModel @ViewModelInject constructor(
-    val remoteRepository: RemoteRepository
+    val newsRepository: NewsRepository
 ): ViewModel() {
 
     private var currentQueryValue: String? = null
@@ -24,7 +22,7 @@ class NewsViewModel @ViewModelInject constructor(
         if (lastResult != null) {
             return lastResult
         }
-        val newResult: Flow<PagingData<Article>> = remoteRepository.getBreakingNews().cachedIn(viewModelScope)
+        val newResult: Flow<PagingData<Article>> = newsRepository.getBreakingNews().cachedIn(viewModelScope)
         currentResult = newResult
         return newResult
     }

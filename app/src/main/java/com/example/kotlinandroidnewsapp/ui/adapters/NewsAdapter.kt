@@ -27,11 +27,16 @@ class NewsAdapter : PagingDataAdapter<Article,ViewHolder>(ARTICLE_COMPARATOR) {
         val articleItem = getItem(position)
         if (articleItem != null) {
             (holder as NewsViewHolder).bind(articleItem)
+            holder.itemView.setOnClickListener {
+                onItemClickListener?.let {
+                    it(articleItem)
+                }
+            }
         }
+
+
 //
     }
-
-    override fun getItemViewType(position: Int): Int = position - 1
 
     //        override fun onBindViewHolder(holder: NewsAdapter.NewsViewHolder, position: Int) {
 //        val article = differ.currentList[position]

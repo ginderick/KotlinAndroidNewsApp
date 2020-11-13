@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import javax.inject.Inject
 
-class RemoteRepository @Inject constructor(
+class NewsRepository @Inject constructor(
     private val newsAPI: NewsAPI,
     private val articleDb: ArticleDb
 ) {
