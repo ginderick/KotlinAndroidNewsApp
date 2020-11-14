@@ -6,11 +6,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.kotlinandroidnewsapp.model.Article
-import com.example.kotlinandroidnewsapp.repository.NewsRepository
+import com.example.kotlinandroidnewsapp.data.NewsRepository
+import com.example.kotlinandroidnewsapp.data.SavedNewsRepository
 import kotlinx.coroutines.flow.Flow
 
 class NewsViewModel @ViewModelInject constructor(
-    val newsRepository: NewsRepository
+    val newsRepository: NewsRepository,
+    val savedNewsRepository: SavedNewsRepository
 ): ViewModel() {
 
     private var currentQueryValue: String? = null
@@ -26,6 +28,17 @@ class NewsViewModel @ViewModelInject constructor(
         currentResult = newResult
         return newResult
     }
+
+    fun getSavedNews(): Flow<PagingData<Article>> {
+//        val lastResult = currentResult
+//        if (lastResult != null) {
+//            return lastResult
+//        }
+        //        currentResult = newResult
+        return savedNewsRepository.getSavedNews()
+    }
+
+
 
 //    fun searchNews(searchQuery: String) = viewModelScope.launch {
 //        val searchNews = remoteRepository.searchNews(searchQuery)

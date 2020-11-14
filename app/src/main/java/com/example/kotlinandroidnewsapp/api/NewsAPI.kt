@@ -26,4 +26,5 @@ interface NewsAPI {
         apiKey: String = NEWS_API_KEY
     ): Response<NewsResponse>
 
+
 }

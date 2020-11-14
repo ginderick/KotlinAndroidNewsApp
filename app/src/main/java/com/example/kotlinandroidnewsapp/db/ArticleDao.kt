@@ -3,6 +3,7 @@ package com.example.kotlinandroidnewsapp.db
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.example.kotlinandroidnewsapp.model.Article
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ArticleDao {
