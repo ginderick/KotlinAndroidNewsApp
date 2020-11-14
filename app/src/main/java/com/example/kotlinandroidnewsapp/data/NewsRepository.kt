@@ -16,6 +16,7 @@ import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
     private val newsAPI: NewsAPI,
+    private val articleDb: ArticleDb
 ) {
 
     fun getBreakingNews(): Flow<PagingData<Article>> {
@@ -27,6 +28,25 @@ class NewsRepository @Inject constructor(
             ),
             pagingSourceFactory = { NewsPagingSource(newsAPI) }
         ).flow
+    }
+
+    fun getSavedNews(): Flow<PagingData<Article>> {
+
+        return Pager(
+            PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false
+            ) ) {
+            articleDb.getArticleDao().getAllArticles()
+        }.flow
+    }
+
+    suspend fun saveNews(article: Article): Long {
+        return articleDb.getArticleDao().upsert(article)
+    }
+
+    suspend fun deleteSavedNews(article: Article) {
+        return articleDb.getArticleDao().delete(article)
     }
 
 

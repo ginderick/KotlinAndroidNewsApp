@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.kotlinandroidnewsapp.R
 import com.example.kotlinandroidnewsapp.model.Article
 
-class NewsAdapter : PagingDataAdapter<Article,ViewHolder>(ARTICLE_COMPARATOR) {
+class NewsAdapter : PagingDataAdapter<Article, ViewHolder>(ARTICLE_COMPARATOR) {
 
 //    val differ = AsyncListDiffer(this, ARTICLE_COMPARATOR)
 
@@ -20,6 +20,9 @@ class NewsAdapter : PagingDataAdapter<Article,ViewHolder>(ARTICLE_COMPARATOR) {
         return NewsViewHolder.create(parent)
     }
 
+    fun getItemAtPosition(position: Int): Article {
+        return getItem(position)!!
+    }
 
     private var onItemClickListener: ((Article) -> Unit)? = null
 
@@ -33,30 +36,7 @@ class NewsAdapter : PagingDataAdapter<Article,ViewHolder>(ARTICLE_COMPARATOR) {
                 }
             }
         }
-
-
-//
     }
-
-    //        override fun onBindViewHolder(holder: NewsAdapter.NewsViewHolder, position: Int) {
-//        val article = differ.currentList[position]
-//        holder.itemView.apply {
-//            Glide.with(this)
-//                .load(article.urlToImage)
-//                .into(ivArticleImage)
-//
-//            tvSource.text = article.source?.name
-//            tvTitle.text = article.title
-//            tvDescription.text = article.description
-//            tvPublishedAt.text = article.publishedAt
-//
-//            setOnClickListener {
-//                onItemClickListener?.let {
-//                    it(article)
-//                }
-//            }
-//        }
-//    }
 
     fun setOnItemClickListener(listener: (Article) -> Unit) {
         onItemClickListener = listener

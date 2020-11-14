@@ -63,10 +63,10 @@ class ArticleFragment: Fragment(R.layout.fragment_article) {
         }
 
 
-//        fab.setOnClickListener {
-//            viewModel.saveNews(article)
-//            Snackbar.make(view, "Saved successfully", Snackbar.LENGTH_SHORT).show()
-//        }
+        fab.setOnClickListener {
+            viewModel.saveNews(article)
+            Snackbar.make(view, "Saved successfully", Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
