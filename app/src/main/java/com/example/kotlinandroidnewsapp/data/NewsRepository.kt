@@ -36,7 +36,8 @@ class NewsRepository @Inject constructor(
             PagingConfig(
                 pageSize = 20,
                 enablePlaceholders = false
-            ) ) {
+            )
+        ) {
             articleDb.getArticleDao().getAllArticles()
         }.flow
     }
@@ -50,9 +51,14 @@ class NewsRepository @Inject constructor(
     }
 
 
-    suspend fun searchNews(searchQuery: String): Response<NewsResponse> {
-//        Log.d("Response", newsAPI.searchNews(searchQuery).toString())
-        return newsAPI.searchNews(searchQuery)
+    fun searchNews(searchQuery: String): Flow<PagingData<Article>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { SearchNewsPagingSource(searchQuery, newsAPI) }
+        ).flow
     }
 
     companion object {

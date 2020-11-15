@@ -39,8 +39,7 @@ class BreakingNewsFragment: Fragment(R.layout.fragment_breaking_news) {
         binding.retryButton.setOnClickListener {
             newsAdapter.retry()
         }
-//        Log.d("Data:", newsAdapter.differ.toString())
-//        observeLiveData()
+
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("article", it)

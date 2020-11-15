@@ -1,5 +1,6 @@
 package com.example.kotlinandroidnewsapp.ui
 
+import android.app.DownloadManager
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +16,6 @@ class NewsViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     private var currentQueryValue: String? = null
-
     private var currentResult: Flow<PagingData<Article>>? = null
 
     fun getBreakingNews(): Flow<PagingData<Article>> {
@@ -40,19 +40,19 @@ class NewsViewModel @ViewModelInject constructor(
     fun deleteSavedNews(article: Article) = viewModelScope.launch {
         newsRepository.deleteSavedNews(article)
     }
+
+    fun searchNews(query: String): Flow<PagingData<Article>> {
+        val lastResult = currentResult
+        if (query == currentQueryValue && lastResult != null) {
+            return lastResult
+        }
+        currentQueryValue = query
+        val newResult: Flow<PagingData<Article>> = newsRepository.searchNews(query)
+            .cachedIn(viewModelScope)
+        currentResult = newResult
+        return newResult
+    }
 }
 
-//    fun searchNews(searchQuery: String) = viewModelScope.launch {
-//        val searchNews = remoteRepository.searchNews(searchQuery)
-//        searchNewsLiveData.postValue(searchNews)
-//    }
-//
-//    fun saveNews(article: Article) = viewModelScope.launch {
-//        localRepository.insertNewsToDb(article)
-//    }
-//
-
-//
-//    fun getSavedNews() = localRepository.getSavedNews()
 
 
