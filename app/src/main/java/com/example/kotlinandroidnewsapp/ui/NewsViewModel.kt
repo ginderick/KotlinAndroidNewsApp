@@ -33,6 +33,10 @@ class NewsViewModel @ViewModelInject constructor(
         return newsRepository.getSavedNews()
     }
 
+    fun update(article: Article) = viewModelScope.launch {
+        newsRepository.update(article.url)
+    }
+
     fun saveNews(article: Article) = viewModelScope.launch {
         newsRepository.saveNews(article)
     }

@@ -8,10 +8,8 @@ import com.example.kotlinandroidnewsapp.api.NewsAPI
 
 import com.example.kotlinandroidnewsapp.db.ArticleDb
 import com.example.kotlinandroidnewsapp.model.Article
-import com.example.kotlinandroidnewsapp.model.NewsResponse
 import kotlinx.coroutines.flow.Flow
 
-import retrofit2.Response
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
@@ -19,14 +17,17 @@ class NewsRepository @Inject constructor(
     private val articleDb: ArticleDb
 ) {
 
-    fun getBreakingNews(): Flow<PagingData<Article>> {
+     fun getBreakingNews(): Flow<PagingData<Article>> {
+
+        val pagingSourceFactory ={ articleDb.getArticleDao().getAllArticles()}
 
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { NewsPagingSource(newsAPI) }
+            remoteMediator =  NewsRemoteMediator(newsAPI, articleDb),
+            pagingSourceFactory = pagingSourceFactory
         ).flow
     }
 
@@ -38,13 +39,18 @@ class NewsRepository @Inject constructor(
                 enablePlaceholders = false
             )
         ) {
-            articleDb.getArticleDao().getAllArticles()
+            articleDb.getArticleDao().getAllSavedArticles()
         }.flow
     }
 
-    suspend fun saveNews(article: Article): Long {
-        return articleDb.getArticleDao().upsert(article)
+    suspend fun update(url: String) {
+        return articleDb.getArticleDao().update(url)
     }
+
+    suspend fun saveNews(article: Article): Long {
+        return articleDb.getArticleDao().insert(article)
+    }
+
 
     suspend fun deleteSavedNews(article: Article) {
         return articleDb.getArticleDao().delete(article)
@@ -52,12 +58,13 @@ class NewsRepository @Inject constructor(
 
 
     fun searchNews(searchQuery: String): Flow<PagingData<Article>> {
+
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { SearchNewsPagingSource(searchQuery, newsAPI) }
+            pagingSourceFactory = { SearchNewsPagingSource(searchQuery, newsAPI, articleDb) }
         ).flow
     }
 
